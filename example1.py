@@ -13,10 +13,19 @@ strategy_description = 'Betray 75% unless colluded within last 3 rounds.'
 import random
     
 def move(my_history, their_history, my_score, their_score):
-  if 'c' in their_history[-3:]: # If the other player has colluded within last 3 rounds 
-    return 'c'    # collude.
+  '''Make my move based on the history with this player.
+  
+  history: a string with one letter (c or b) per round that has been played with this opponent.
+  their_history: a string of the same length as history, possibly empty. 
+  The first round between these two players is my_history[0] and their_history[0]
+  The most recent round is my_history[-1] and their_history[-1]
+  
+  Returns 'c' or 'b' for collude or betray.
+  '''
+  if 'c' in their_history[-10:]: # If the other player has colluded within the last 10 rounds.
+    return 'b'    # betray.
   else:
     if random.random()<0.25: # 25% of the other rounds
-      return 'c'         # collude
+      return 'b'         # betray
     else:
-      return 'b'         # but 75% of the time betray
+      return 'c'         # but 75% of the time collude
