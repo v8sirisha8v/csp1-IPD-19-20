@@ -7,8 +7,8 @@
 ####
 
 team_name = 'E1'
-strategy_name = 'Betray based on last 3 rounds'
-strategy_description = 'Betray 75% unless colluded within last 3 rounds.'
+strategy_name = 'Betray based on last 10 rounds'
+strategy_description = 'betray 25% unless colluded within last 10 rounds.'
 ''
 import random
     
