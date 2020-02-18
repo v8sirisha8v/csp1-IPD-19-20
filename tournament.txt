@@ -5,8 +5,8 @@ Player 0 (P0): E0, Collude
         Always collude.
 Player 1 (P1): E1, Betray based on last 3 rounds
         Betray 75% unless colluded within last 3 rounds.
-Player 2 (P2): E2, Alternate
-        Collude, then alternate.
+Player 2 (P2): E2, Collude every third round
+        Collude every third round. Betray all other rounds.
 Player 3 (P3): E3, Collude but retaliate
         Collude first round. Collude, except in a round after getting 
         a severe punishment.
@@ -15,20 +15,20 @@ Section 1 - Player vs. Player
 --------------------------------------------------------------------------------
 Each column shows pts//round earned against each other player:
              P0     P1     P2     P3
-vs. P0 :      0      0     49      0
-vs. P1 :     -4      0     46     -4
-vs. P2 :   -249   -248      0   -199
-vs. P3 :      0     -4   -199      0
-TOTAL  :   -253   -252   -104   -203
+vs. P0 :      0      0     66      0
+vs. P1 :     -4      0     63     -4
+vs. P2 :   -334   -332      0   -248
+vs. P3 :      0     -4    -50      0
+TOTAL  :   -338   -336     79   -252
 --------------------------------------------------------------------------------
 Section 2 - Leaderboard
 --------------------------------------------------------------------------------
 Average points per round:
 Team name (P#):  Score      with strategy name
-E2        (P2):        -26 points with Alternate                               
-E3        (P3):        -51 points with Collude but retaliate                   
-E1        (P1):        -63 points with Betray based on last 3 rounds           
-E0        (P0):        -64 points with Collude                                 
+E2        (P2):         19 points with Collude every third round               
+E3        (P3):        -63 points with Collude but retaliate                   
+E1        (P1):        -84 points with Betray based on last 3 rounds           
+E0        (P0):        -85 points with Collude                                 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 example0--------------------------------------------------------------------------------
@@ -74,7 +74,7 @@ example1------------------------------------------------------------------------
 team_name = 'E1'
 strategy_name = 'Betray based on last 3 rounds'
 strategy_description = 'Betray 75% unless colluded within last 3 rounds.'
-
+''
 import random
     
 def move(my_history, their_history, my_score, their_score):
@@ -96,8 +96,8 @@ example2------------------------------------------------------------------------
 ####
 
 team_name = 'E2'
-strategy_name = 'Alternate'
-strategy_description = 'Collude, then alternate.'
+strategy_name = 'Collude every third round'
+strategy_description = 'Collude every third round. Betray all other rounds.'
     
 def move(my_history, their_history, my_score, their_score):
     '''Make my move based on the history with this player.
@@ -109,8 +109,8 @@ def move(my_history, their_history, my_score, their_score):
     
     Returns 'c' or 'b' for collude or betray.
     '''
-    # This player colludes on even numbered rounds (first round is round #0).
-    if len(my_history)%2 == 0:
+    # This player colludes every third round (first round is round #0).
+    if len(my_history)%3 == 0:
         return 'c'
     else:
         return 'b'
@@ -153,17 +153,17 @@ Section 3 - Game Data for Team E0
 cCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 BCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
 --------------------------------------------------------------------------------
--249 pt//round: E0(P0) "Collude"
-49 pt//ound: E2(P2) "Alternate"
-CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
-CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
+-334 pt//round: E0(P0) "Collude"
+66 pt//ound: E2(P2) "Collude every third round"
+CccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCc
+CBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCB
 
-CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcC
-CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBC
+cCccCccCccCccCccCccCccCccCccCcc
+BCBBCBBCBBCBBCBBCBBCBBCBBCBBCBB
 
 --------------------------------------------------------------------------------
 0 pt//round: E0(P0) "Collude"
@@ -171,8 +171,8 @@ CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBC
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -183,17 +183,17 @@ Section 3 - Game Data for Team E1
 BCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 cCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
 --------------------------------------------------------------------------------
--248 pt//round: E1(P1) "Betray based on last 3 rounds"
-46 pt//ound: E2(P2) "Alternate"
-BcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
-cBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
+-332 pt//round: E1(P1) "Betray based on last 3 rounds"
+63 pt//ound: E2(P2) "Collude every third round"
+BccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCc
+cBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCB
 
-CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcC
-CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBC
+cCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCc
+BCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCB
 
 --------------------------------------------------------------------------------
 -4 pt//round: E1(P1) "Betray based on last 3 rounds"
@@ -201,41 +201,38 @@ CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBC
 BcCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 cBCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
-CCCCCCCCCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 Section 3 - Game Data for Team E2
 --------------------------------------------------------------------------------
-49 pt//round: E2(P2) "Alternate"
--249 pt//ound: E0(P0) "Collude"
-CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
-CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
+66 pt//round: E2(P2) "Collude every third round"
+-334 pt//ound: E0(P0) "Collude"
+CBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCB
+CccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCc
 
-CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBC
-CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcC
-
---------------------------------------------------------------------------------
-46 pt//round: E2(P2) "Alternate"
--248 pt//ound: E1(P1) "Betray based on last 3 rounds"
-cBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCB
-BcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCc
-
-CBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBCBC
-CcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcCcC
+BCBBCBBCBBCBBCBBCBBCBBCBBCBBCBB
+cCccCccCccCccCccCccCccCccCccCcc
 
 --------------------------------------------------------------------------------
--199 pt//round: E2(P2) "Alternate"
--199 pt//ound: E3(P3) "Collude but retaliate"
-CBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcB
-CcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBc
+63 pt//round: E2(P2) "Collude every third round"
+-332 pt//ound: E1(P1) "Betray based on last 3 rounds"
+cBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCB
+BccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCc
 
-cBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcB
-BcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBc
+BCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCBBCB
+cCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCccCc
 
-cBcBcBcBcBcBcBcBcBcBc
-BcBcBcBcBcBcBcBcBcBcB
+--------------------------------------------------------------------------------
+-50 pt//round: E2(P2) "Collude every third round"
+-248 pt//ound: E3(P3) "Collude but retaliate"
+CBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCB
+CcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCc
+
+bCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbC
+bCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbC
 
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
@@ -246,8 +243,8 @@ Section 3 - Game Data for Team E3
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
 --------------------------------------------------------------------------------
 -4 pt//round: E3(P3) "Collude but retaliate"
@@ -255,19 +252,16 @@ CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 cBCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 BcCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
-CCCCCCCCCCCCCCCCCCCCCCCC
-CCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
 
 --------------------------------------------------------------------------------
--199 pt//round: E3(P3) "Collude but retaliate"
--199 pt//ound: E2(P2) "Alternate"
-CcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBc
-CBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcB
+-248 pt//round: E3(P3) "Collude but retaliate"
+-50 pt//ound: E2(P2) "Collude every third round"
+CcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbCc
+CBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbCB
 
-BcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBc
-cBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcBcB
-
-BcBcBcBcBcBcBcBcBcBcB
-cBcBcBcBcBcBcBcBcBcBc
+bCcbCcbCcbCcbCcbCcbCcbCcbCcbCcbC
+bCBbCBbCBbCBbCBbCBbCBbCBbCBbCBbC
 
 --------------------------------------------------------------------------------

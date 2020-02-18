@@ -8,9 +8,9 @@
 
 team_name = 'E1'
 strategy_name = 'Betray based on last 3 rounds'
-strategy_description = 'Bebtray 75% unless colluded within last 3 rounds.'
+strategy_description = 'Betray 75% unless colluded within last 3 rounds.'
 ''
-immport random
+import random
     
 def move(my_history, their_history, my_score, their_score):
   if 'c' in their_history[-3:]: # If the other player has colluded within last 3 rounds 

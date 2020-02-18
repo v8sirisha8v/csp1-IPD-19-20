@@ -7,8 +7,8 @@
 ####
 
 team_name = 'E2'
-strategy_name = 'Alternate'
-strategy_description = 'Collude, then alternate.'
+strategy_name = 'Collude every third round'
+strategy_description = 'Collude every third round. Betray all other rounds.'
     
 def move(my_history, their_history, my_score, their_score):
     '''Make my move based on the history with this player.
@@ -20,8 +20,8 @@ def move(my_history, their_history, my_score, their_score):
     
     Returns 'c' or 'b' for collude or betray.
     '''
-    # This player colludes on even numbered rounds (first round is round #0).
-    if len(my_history)%2 == 0:
+    # This player colludes every third round (first round is round #0).
+    if len(my_history)%3 == 0:
         return 'c'
     else:
         return 'b'
